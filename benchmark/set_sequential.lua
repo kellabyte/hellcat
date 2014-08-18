@@ -14,10 +14,12 @@ init = function(args)
 
     for i=1,pipeline_length do
         counter = counter + 1
+        padded_value = string.format("%010d", counter)
+        
         h = {
             keyspace = "database",
-            key      = counter,
-            value    = counter
+            key      = padded_value,
+            value    = padded_value
         }
         r[i] = wrk.format("PUT", "/", h)
     end
