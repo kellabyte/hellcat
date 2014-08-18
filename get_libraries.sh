@@ -1,7 +1,9 @@
 #!/bin/bash
 
-# Get and compile Haywire.
+mkdir lib
 cd lib
+
+# Get and compile Haywire.
 git clone https://github.com/kellabyte/Haywire.git
 cd Haywire
 ./build.sh
