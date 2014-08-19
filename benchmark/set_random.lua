@@ -1,13 +1,12 @@
--- example dynamic request script which demonstrates changing
--- the request path and a header for each request
--------------------------------------------------------------
--- NOTE: each wrk thread has an independent Lua scripting
--- context and thus there will be one counter per thread
+arguments = {}
 
 init = function(args)
     wrk.init(args)
+    arguments = args
+end
 
-    pipeline_length = tonumber(args[1]) or 1
+request = function()
+    pipeline_length = tonumber(arguments[1]) or 1
     local r = {}
 
     for i=1,pipeline_length do
@@ -20,8 +19,6 @@ init = function(args)
     end
 
     req = table.concat(r)
-end
 
-request = function()
     return req
 end
