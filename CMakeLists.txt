@@ -92,6 +92,7 @@ add_executable (hellcat
     ${CMAKE_SOURCE_DIR}/lib/mdb/libraries/liblmdb/mdb.o
     ${CMAKE_SOURCE_DIR}/lib/mdb/libraries/liblmdb/midl.o)
 
+# Libraries to link in reverse order because that's what ld requires.
 target_link_libraries (hellcat ${CMAKE_THREAD_LIBS_INIT}
-    ${CMAKE_SOURCE_DIR}/lib/Haywire/builds/unix/debug/libuv.a
-    ${CMAKE_SOURCE_DIR}/lib/Haywire/builds/unix/debug/libhaywire.a)
+    ${CMAKE_SOURCE_DIR}/lib/Haywire/builds/unix/debug/libhaywire.a
+    ${CMAKE_SOURCE_DIR}/lib/Haywire/builds/unix/debug/libuv.a)
