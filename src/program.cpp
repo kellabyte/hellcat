@@ -1,7 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
-#include <chrono>
+//#include <chrono>
 #include <thread>
 #include <haywire.h>
 #include "lmdb.h"
@@ -14,7 +14,7 @@
 #include "hellcat.h"
 
 using namespace std;
-using namespace chrono;
+//using namespace chrono;
 using namespace hellcat::storage;
 
 void create_http_endpoint();
