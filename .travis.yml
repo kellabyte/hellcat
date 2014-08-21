@@ -1,4 +1,9 @@
-language: c++
+language: cpp
+
+compiler:
+  - clang
+  - gcc
+  
 script:
   - ./get_libraries.sh
   - ./compile_make.sh
