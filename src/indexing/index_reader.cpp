@@ -1,6 +1,6 @@
 #include <iostream>
 //#include <chrono>
-#include <thread>
+//#include <thread>
 //#include "../simd_compression/codecfactory.h"
 //#include "../simd_compression/intersection.h"
 #include "index_reader.h"
