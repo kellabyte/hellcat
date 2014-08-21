@@ -1,12 +1,12 @@
 #include <iostream>
-#include <chrono>
+//#include <chrono>
 #include <thread>
 //#include "../simd_compression/codecfactory.h"
 //#include "../simd_compression/intersection.h"
 #include "index_reader.h"
 
 using namespace std;
-using namespace chrono;
+//using namespace chrono;
 
 namespace hellcat {
     namespace indexing {
