@@ -1,0 +1,4 @@
+language: c++
+script:
+  - ./get_libraries.sh
+  - ./compile_make.sh
