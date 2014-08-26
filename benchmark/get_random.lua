@@ -11,7 +11,8 @@ request = function()
 
     for i=1,pipeline_length do
         h = {
-            key = math.random(0, 1000000)
+            keyspace = "database",
+            key      = string.format("%010d", math.random(0, 1000000))
         }
         r[i] = wrk.format("GET", "/", h)
     end

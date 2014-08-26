@@ -88,9 +88,6 @@ namespace hellcat {
             
             mdb_key.mv_size = pair->key.length() + 1;
             mdb_key.mv_data = (void*)pair->key.data();
-            
-            //mdb_value.mv_size = pair->value.length() + 1;
-            //mdb_value.mv_data = (void*)pair->value.data();
             mdb_value.mv_size = pair->value_length + 1;
             mdb_value.mv_data = pair->value;
             
@@ -109,43 +106,52 @@ namespace hellcat {
             {
                 db_instance = keyspaces->operator[](pair->keyspace.data());
 
-                //if (db_instance == NULL)
-                //{
-                    rc = mdb_dbi_open(context->transaction, pair->keyspace.data(), MDB_CREATE, &db_instance);
-                    if (rc == MDB_SUCCESS)
-                    {
-                        keyspaces->operator[](pair->keyspace.data()) = db_instance;
-                    }
-                    else
-                    {
-                        // TODO: Return an error.
-                    }
-                //}
+                rc = mdb_dbi_open(context->transaction, pair->keyspace.data(), MDB_CREATE, &db_instance);
+                if (rc == MDB_SUCCESS)
+                {
+                    keyspaces->operator[](pair->keyspace.data()) = db_instance;
+                }
+                else
+                {
+                    // TODO: Return an error.
+                }
             }
 
+            int return_code = HCAT_SUCCESS;
             MDB_val mdb_key;
             MDB_val mdb_value;
-            MDB_cursor *cursor;
+            //MDB_cursor *cursor;
             
             mdb_key.mv_size = pair->key.length() + 1;
-            auto blah = pair->key.data();
             mdb_key.mv_data = (char*)pair->key.data();
             
-            // TODO: Why am I using a cursor here? I forget.
-            // Use mdb_get() instead.
-            int return_code = HCAT_SUCCESS;
-            rc = mdb_cursor_open(context->transaction, db_instance, &cursor);
-            rc = mdb_cursor_get(cursor, &mdb_key, &mdb_value, MDB_SET);
-            //rc = mdb_cursor_get(cursor, &mdb_key, &mdb_value, MDB_NEXT);
+            rc = mdb_get(context->transaction, db_instance, &mdb_key, &mdb_value);
             
             switch(rc)
             {
                 case MDB_SUCCESS:
                 {
-                    //char* buffer = new char[mdb_value.mv_size];
-                    //memcpy(buffer, (char **)mdb_value.mv_data, mdb_value.mv_size);
-                    ////pair->value = string_ref(buffer, mdb_value.mv_size);
-                    //pair->value = buffer;
+                    pair->value = mdb_value.mv_data;
+                    pair->value_length = mdb_value.mv_size;
+                    break;
+                }
+                case MDB_NOTFOUND:
+                {
+                    return_code = HCAT_KEYNOTFOUND;
+                    break;
+                }
+            }
+            
+            // TODO: Use a cursor here for multi-operation transactions.
+            /*
+            rc = mdb_cursor_open(context->transaction, db_instance, &cursor);
+            rc = mdb_cursor_get(cursor, &mdb_key, &mdb_value, MDB_SET);
+            
+            
+            switch(rc)
+            {
+                case MDB_SUCCESS:
+                {
                     pair->value = mdb_value.mv_data;
                     pair->value_length = mdb_value.mv_size;
                     break;
@@ -165,6 +171,8 @@ namespace hellcat {
             //}
             
             mdb_cursor_close(cursor);
+            */
+            
             return return_code;
         }
         
