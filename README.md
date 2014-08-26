@@ -9,7 +9,7 @@ My other high performance experiment project [Haywire](https://github.com/kellab
 ## Goals
 
 - Compete with Redis and Memcached in performance.
-- Add Redis and Memcached protocol compatibility support.
+- Add Redis and Memcached client protocol compatibility support.
 - Ability to run with in-memory only mode or ACID mode with persistence and serializable isolation.
 - SIMD hardware accelerated indexes for search queries.
 - Replication.
