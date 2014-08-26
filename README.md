@@ -2,7 +2,7 @@
 
 Hellcat
 =======
-Hellcat is a high performance database experiment project to see how fast of a database I can write in C and C++. My other high performance experiment project [Haywire](https://github.com/kellabyte/Haywire) is used in Hellcat to accept get and put requests over HTTP. 
+Hellcat is a high performance database experiment project to see how fast of a database I can write in C and C++. My other high performance experiment project [Haywire](https://github.com/kellabyte/Haywire) that can do 600,000 HTTP requests/second on old hardware is used in Hellcat to accept get and put requests over HTTP. 
 
 ## Goals
 
